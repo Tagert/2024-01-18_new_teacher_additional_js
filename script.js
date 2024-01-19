@@ -1,5 +1,7 @@
 "use strict";
 
+console.groupCollapsed("Cars task");
+
 const cars = [
   {
     Name: "chevrolet chevelle malibu",
@@ -4486,7 +4488,16 @@ console.log(filteredByMilesCylinders);
 const calcKilowatts = cars.map(
   (car) => (car.kilowatts = Math.round(car.Horsepower * 0.745699872))
 );
+
+// Without modification
+
+const userCars = cars.map((car) => {
+  return { kilowats: (car.Horsepower * 0.7457).toFixed(2), ...car };
+});
+
+console.log(userCars);
 console.log(cars);
+console.log(calcKilowatts);
 // car.Horsepower * 0.745699872
 // 1.5  Parašyti komandą kuri gražins automobilius išrikiuotus pagal "Weight_in_lbs" didėjančia tvarka.
 const sortedCars = cars.sort((a, b) => a.Weight_in_lbs - b.Weight_in_lbs);
@@ -4497,3 +4508,96 @@ const someMadeInUsa = cars.some((car) => car.Origin === "USA");
 console.log(
   `All cars made in the USA - ${allMadeInUsa}, there is at least one made in the USA - ${someMadeInUsa}`
 );
+
+const newObject = {};
+newObject.testing = "Hello";
+
+console.log(newObject);
+
+console.groupEnd();
+
+// 1. Kreiptis į HTML'e sukurta div wrapper'į bei į jį įdėti savo vardą;
+const bodyElement = document.querySelector("body");
+const h1Element = document.querySelector("h1");
+
+const divWrapperElement = document.createElement("div");
+divWrapperElement.classList.add("wrapper");
+h1Element.after(divWrapperElement);
+divWrapperElement.style.padding = "1rem";
+
+const paragraph = document.createElement("p");
+divWrapperElement.appendChild(paragraph);
+paragraph.append("My name is Andrew");
+
+// 2. Gauti wrpper'į pagal klasę naudojant querySelector bei pakeist fono spalvą;
+const divWrapperElementByClass = document.querySelector(".wrapper");
+divWrapperElementByClass.style.backgroundColor = "Orange";
+
+// 3. Duoti buttonui onclick funkciją. Paspaudus ant button'o turi pasikeist jau egzistuojančio puslapyje teksto spalva;
+const button = document.createElement("button");
+divWrapperElement.append(button);
+button.append("Click me if you want to change something");
+
+// first method
+// const clickOn = () => {
+//   paragraph.style.color = "white";
+// };
+// button.addEventListener("click", clickOn);
+
+// another method
+button.addEventListener("click", function () {
+  paragraph.style.color = "white";
+  paragraph.style.fontSize = "1.4rem";
+});
+
+// 4. Gauti visus elementus pagal klasę tokiu butu, kad butu gaunamas masyvas, o jame elementai. Vėliau norimiems masyvo elementams  priskirt skirtingą spalvą bei skirtingą background spalvą;
+
+for (let i = 1; i <= 6; i++) {
+  const paragraph2 = document.createElement("p");
+  paragraph2.classList.add("text");
+  divWrapperElement.append(paragraph2);
+  paragraph2.append(`Put your text here ${i}`);
+}
+
+const classArray = document.getElementsByClassName("text");
+console.log(classArray);
+
+const colors = [
+  "blue",
+  "blueviolet",
+  "rgb(26, 23, 23)",
+  "aquamarine",
+  "white",
+  "yellow",
+];
+console.log(colors);
+
+const button2 = document.createElement("button");
+divWrapperElement.append(button2);
+button2.append("Click me if you want to change something");
+
+button2.addEventListener("click", function () {
+  for (let i = 0; i < colors.length; i++) {
+    classArray[i].style.backgroundColor = colors[i];
+    classArray[i].style.padding = "0.5rem";
+  }
+
+  for (let j = colors.length - 1; j >= 0; j--) {
+    classArray[j].style.color = colors[colors.length - 1 - j];
+  }
+});
+
+// 5. Paselectint html tagą bei naudojant classList pridėt papildomų stilių;
+// EXTRA: Iš skirtingu text wrapperiu gaut elementus pagal klasę bei atvaizduot jų texto contentą consolėj for ciklo pagalba;
+
+const htmlTag = document.documentElement;
+htmlTag.classList.add("main");
+htmlTag.style.padding = "1rem";
+console.log(htmlTag);
+
+for (let i = 0; i < classArray.length; i++) {
+  console.log(classArray[i].textContent);
+}
+
+const oneElementByClass = document.querySelector(".text");
+console.log(oneElementByClass);
