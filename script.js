@@ -4515,6 +4515,7 @@ newObject.testing = "Hello";
 console.log(newObject);
 
 console.groupEnd();
+console.groupCollapsed("DOM tasks");
 
 // 1. Kreiptis į HTML'e sukurta div wrapper'į bei į jį įdėti savo vardą;
 const bodyElement = document.querySelector("body");
@@ -4532,6 +4533,7 @@ paragraph.append("My name is Andrew");
 // 2. Gauti wrpper'į pagal klasę naudojant querySelector bei pakeist fono spalvą;
 const divWrapperElementByClass = document.querySelector(".wrapper");
 divWrapperElementByClass.style.backgroundColor = "Orange";
+divWrapperElementByClass.style.marginBottom = "1rem";
 
 // 3. Duoti buttonui onclick funkciją. Paspaudus ant button'o turi pasikeist jau egzistuojančio puslapyje teksto spalva;
 const button = document.createElement("button");
@@ -4601,3 +4603,152 @@ for (let i = 0; i < classArray.length; i++) {
 
 const oneElementByClass = document.querySelector(".text");
 console.log(oneElementByClass);
+console.groupEnd();
+
+// 1. Naudojant JS sukurti div elementą, į jį įdėti teksto. Div elementą pridėt prie ekrano;
+const divWithTextElement = document.createElement("div");
+divWithTextElement.classList.add("user-info-wrapper");
+divWrapperElement.after(divWithTextElement);
+divWithTextElement.style.padding = "1rem";
+
+const paragraphElement = document.createElement("p");
+divWithTextElement.append(paragraphElement);
+paragraphElement.textContent = "Text to tell you about this DIV";
+
+// 2. Per HTML turėti būt sukūrus DIV su id user-info-wrapper, sukurti h1 elementą su user vardu, sukurta h1 elementą pridėt į user-info-wrapper;
+const h1UserElement = document.createElement("h1");
+divWithTextElement.prepend(h1UserElement);
+h1UserElement.textContent = "User Name:";
+h1UserElement.style.fontSize = "1.5rem";
+
+// 3.  Sukurti h3 elementą su user pavarde, elementą pridėt į user-info-wrapper div'o pradžią;
+const h3UserElement = document.createElement("h3");
+paragraphElement.before(h3UserElement);
+h3UserElement.textContent = "User LastName:";
+h3UserElement.style.fontSize = "1.5rem";
+
+// 4. Sukurti button bei div kuris yra 200px x 200px. Paspaudus button divas turi tapt žalias, antrą kart paspaudus - raudonas. Toliau spaudžiant mygtuką veiksmas turi kartotis;
+const squireDivElement = document.createElement("div");
+squireDivElement.setAttribute("id", "change-color");
+squireDivElement.setAttribute(
+  "style",
+  "display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; width: 200px; margin-bottom: 1rem;"
+);
+divWithTextElement.after(squireDivElement);
+
+const btnChangerElement = document.createElement("button");
+btnChangerElement.classList.add("button-change-color");
+squireDivElement.append(btnChangerElement);
+btnChangerElement.textContent = "Click to change color";
+
+const paragraphNumberElement = document.createElement("p");
+squireDivElement.prepend(paragraphNumberElement);
+paragraphNumberElement.setAttribute("style", "font-size: 4rem; margin: 0");
+
+let buttonStatus = true;
+
+btnChangerElement.addEventListener("click", function () {
+  if (buttonStatus === true) {
+    squireDivElement.style.backgroundColor = "green";
+    buttonStatus = false;
+    randomNumber();
+  } else {
+    squireDivElement.style.backgroundColor = "red";
+    buttonStatus = true;
+    randomNumber();
+  }
+});
+
+// 5. Sukurti button'ą kurį paspaudus ekrane būtų rodomas random skaičius nuo 1 iki 10;
+function randomNumber() {
+  const changeTextWithNumber = (paragraphNumberElement.textContent = Math.round(
+    Math.random() * (10 - 1) + 1
+  ));
+  return changeTextWithNumber;
+}
+
+// 6. Pridėti div'ui event listener, kiekvieną kart paspaudus ant divo, jis turi padidėt į aukštį bei plotį po 10px. Pradžioj div'as turi būt 100px x 100px
+let height = 100;
+let width = 100;
+
+const anotherSquireDivElement = document.createElement("div");
+anotherSquireDivElement.classList.add("size-changer");
+squireDivElement.after(anotherSquireDivElement);
+anotherSquireDivElement.setAttribute(
+  "style",
+  "display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100px; width: 100px; margin-bottom: 1rem; background-color: orange"
+);
+
+anotherSquireDivElement.addEventListener("click", changeSize);
+
+function changeSize() {
+  height = height + 10;
+  width = width + 10;
+  anotherSquireDivElement.style.height = `${height}px`;
+  anotherSquireDivElement.style.width = `${width}px`;
+}
+
+// 7. CAO JS Events tema;
+
+// task 1 (event click -> increase num by 1)
+let num = 1;
+
+const paragraphIncreasingElement = document.createElement("p");
+anotherSquireDivElement.prepend(paragraphIncreasingElement);
+paragraphIncreasingElement.setAttribute("style", "font-size: 4rem; margin: 0");
+
+const btnIncreasingElement = document.createElement("button");
+anotherSquireDivElement.append(btnIncreasingElement);
+btnIncreasingElement.textContent = "Increase";
+
+paragraphIncreasingElement.textContent = `${num}`;
+
+btnIncreasingElement.addEventListener("click", increaseNumber);
+
+function increaseNumber() {
+  num++;
+  paragraphIncreasingElement.textContent = `${num}`;
+}
+
+// task 2 (event can't copy)
+
+paragraphElement.addEventListener("copy", cantCopy);
+
+function cantCopy() {
+  alert("Sorry, but you can't copy it");
+}
+
+// task 3 (two buttons with different output)
+
+const divCheckYourAgeElement = document.createElement("div");
+divCheckYourAgeElement.classList.add("your-age");
+divCheckYourAgeElement.setAttribute(
+  "style",
+  "display: flex; flex-direction: column; justify-content: center; align-items: center; height: 200px; width: 300px; margin-bottom: 1rem; background-color: purple"
+);
+anotherSquireDivElement.after(divCheckYourAgeElement);
+const h3AlertElement = document.createElement("h3");
+divCheckYourAgeElement.append(h3AlertElement);
+const button18Yes = document.createElement("button");
+button18Yes.textContent = "I am 18+";
+const button18No = document.createElement("button");
+button18No.textContent = "I am no 18 yet";
+divCheckYourAgeElement.append(button18Yes);
+divCheckYourAgeElement.append(button18No);
+
+button18Yes.addEventListener("click", checkYourAge);
+function checkYourAge() {
+  h3AlertElement.textContent = "Congrats you can drink a beer";
+}
+
+button18No.addEventListener("click", checkYourAge2);
+function checkYourAge2() {
+  h3AlertElement.textContent = "Sorry, but we can't sell you a beer";
+}
+
+// Find all Buttons from document and when press on it, it will output true boolean
+
+// document.body.addEventListener("click", () => {
+//   const isButton = event.target.nodeName === "BUTTON"; (need to use UPPER CASE)
+//   console.log(isButton);
+// });
